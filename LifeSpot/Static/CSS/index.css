@@ -1,0 +1,75 @@
+﻿.video-container {
+    display: inline-block;
+    padding-left: 1%;
+}
+
+.navbar {
+    color: darkgray;
+    padding-left: 15%;
+}
+
+header {
+    color: black;
+    padding-left: 1%;
+    padding-top: 1.2%;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    font-size: small;
+    color: black;
+    line-height: 66%;
+    padding-left: 1%;
+}
+
+aside {
+    height: 100%; /* Высота в полный размер. Этот параметр можно убрать, если вы хотите выставлять высоту автоматически */
+    width: 10%;
+    position: absolute; /* Фиксированная позиция сайд-бара. Так он будет оставаться на месте при скроллинге */
+    z-index: 1; /* Сайд-бар будет поверх остальных элементов */
+    top: 0; /* Сайдбар будет в самой верхней части страницы */
+    left: 0;
+    background-color: #111; /* Черный цвет фона (задан в виде кода) */
+    overflow-x: hidden; /* Отключаем горизонтальную прокрутку */
+    padding-top: 20px;
+}
+
+body {
+    padding-left: 11%;
+}
+
+.bordered {
+    padding: 10px;
+    margin-bottom: 12px;
+}
+
+header, footer, aside, body, .navbar, .video-container {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.navlink:hover {
+    color: #E5F0FA;
+}
+
+a {
+    color: inherit;
+    text-decoration: inherit;
+    cursor: inherit;
+}
+
+.header {
+    color: slategray;
+}
+
+header, footer, body, .video-container {
+    background-color: linen;
+}
+
+.input-container{
+    margin: 10px;
+}
+
+input:focus{
+    background-color: #FAE5E6;
+}
