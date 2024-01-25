@@ -66,10 +66,10 @@ header, footer, body, .video-container {
     background-color: linen;
 }
 
-.input-container{
+.input-container {
     margin: 10px;
 }
 
-input:focus{
+input:focus {
     background-color: #FAE5E6;
 }

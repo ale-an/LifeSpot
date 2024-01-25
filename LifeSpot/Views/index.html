@@ -5,7 +5,17 @@
     <title>LifeSpot</title>
     <link href="../Static/CSS/index.css" rel="stylesheet" type="text/css">
     <link href=’https://fonts.googleapis.com/css?family=Open+Sans’ rel=’stylesheet’>
+    <script type="text/javascript" src="../Static/JS/index.js"></script>
+    <script>
+        checkAge();
+        handleSession();
+        sessionLog();
+        const funcElementText = function () {
+            return document.getElementsByTagName('input')[0].value.toLowerCase();
+        }
+    </script>
 </head>
+<!--SIDEBAR-->
 <body>
 <header class="bordered header">
     <!--Заголовок страницы-->
@@ -13,14 +23,8 @@
     <!--Параграф-->
     <p>Покажем, что происходит прямо сейчас</p>
 </header>
-<aside id="sidebar">
-    <div class="navbar">
-        <a class="navlink" href="/">Все трансляции</a>
-        <a class="navlink" href="/">О проекте</a>
-    </div>
-</aside>
 <div class="input-container">
-    <input type="text"/>
+    <input type="text" oninput="getSearch()" size=50%>
 </div>
 <div class="video-container">
     <iframe width="280" height="157" src="https://www.youtube.com/embed/Vn28Tk_uuq0?si=oxbGo8-BbUULW3sa"
@@ -44,8 +48,5 @@
     <h3 class="video-title">Лондон, автобусный маршрут</h3>
 </div>
 </body>
-<footer>
-    <p>LifeSpot — все права защищены.</p>
-    <p>Связаться с нами: contact@lifespot.ru</p>
-</footer>
+<!--FOOTER-->
 </html>
