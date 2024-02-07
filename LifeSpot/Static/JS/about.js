@@ -1,14 +1,119 @@
-﻿function request() {
-    let userName = prompt('Напишите, пожалуйста, ваше имя')
-    let feedback = prompt('Оставьте отзыв')
+﻿/*
+* Запросим пользовательский ввод
+* и сохраним отзыв в объект
+* 
+* */
+function getReview() {
+    // Создадим объект
+    let review = {}
 
-    add(userName, feedback);
+    // Сохраним свойство имени
+    review["userName"] = prompt("Как вас зовут ?")
+    if (review["userName"] == null) {
+        return
+    }
+
+    // Сохраним текст отзыва
+    review["comment"] = prompt("Напишите свой отзыв")
+    if (review["comment"] == null) {
+        return
+    }
+
+    // Сохраним текущее время
+    review["date"] = new Date().toLocaleString()
+
+    if (confirm("Вы хотите, чтобы ваш комментарий оценили другие пользователи?")) {
+        let reviewWithRate = Object.create(review);
+        reviewWithRate.rate = 0;
+        writeReview(reviewWithRate);
+
+    } else {
+        // Добавим на страницу
+        writeReview(review)
+    }
 }
 
-let add = (name, text) => {
-    let elem = document.getElementsByClassName('list')[0];
-    elem.innerHTML += '    <div class="review-text">\n' +
-        `<p> <i> <b>${name}</b>  ${new Date().toLocaleDateString()}</i></p>` +
-        `<p>${text}</p>` +
-        '</div>';
+/*
+* Запишем отзыв на страницу 
+* 
+* */
+const writeReview = review => {
+    let likeCounter = '';
+
+    // Если публикуется отзыв - добавляем ему кнопку с лайками.
+    if (review.hasOwnProperty('rate')) {
+
+        // Генерим идентификатор комментария.
+        let commentId = Math.random();
+        // Для кнопки лайков добавляем: идентификатор, атрибут onclick для передачи идентификатора в функцию, значок лайка, и само значение счётчика отделяем пробелом
+        // Также мы добавили стиль, чтобы кнопка смотрелась лучше и не имела рамок
+        likeCounter += '<button id="' + commentId + '" style="border: none" onclick="addLike(this.id)">' + `❤️ ${review.rate}</button>`
+    }
+    // Запишем результат 
+    document.getElementsByClassName('reviews')[0].innerHTML += ' <div class="review-    text">\n' + `<p> <i> <b>${review['author']}</b> ${review['date']}${likeCounter}</i></p>` + `<p>${review['text']}</p>` + '</div>';
+}
+
+function addLike(id) {
+    // Найдём нужный элемент по id
+    let element = document.getElementById(id);
+
+    // Преобразуем текст элемента в массив, разбив его по пробелам (так как счётчик лайков у нас отделен от символа ❤️пробелом)
+    let array = element.innerText.split(' ')
+
+    // Вытащим искомое значение счётчика и сразу же преобразуем его в число, так как
+    // при сложении любого значения со строкой в JS будет строка, а нам этого не требуется
+    let resultNum = parseInt(array[array.length - 1], 10);
+
+    // Увеличим счётчик
+    resultNum += 1
+
+    // Сохраним измененное значение обратно в массив
+    array[array.length - 1] = `${resultNum}`
+
+    // Обновим текст элемента
+    element.innerText = array.join(' ')
+}
+
+function Comment() {
+    // Запросим имя
+    this.author = prompt("Как вас зовут ?")
+    if (this.author == null) {
+        this.empty = true
+        return
+    }
+
+    // Запросим текст
+    this.text = prompt("Оставьте отзыв")
+    if (this.text == null) {
+        this.empty = true
+        return
+    }
+
+    // Сохраним текущее время
+    this.date = new Date().toLocaleString()
+}
+
+function addComment() {
+    let comment = new Comment()
+
+    // проверяем, успешно ли юзер осуществил ввод
+    if (comment.empty) {
+        return;
+    }
+
+    // Запросим, хочет ли пользователь оставить полноценный отзыв или это будет обычный комментарий
+    let enableLikes = confirm('Разрешить пользователям оценивать ваш отзыв?')
+
+    if (enableLikes) {
+        // Создадим для отзыва новый объект из прототипа - комментария
+        let review = Object.create(comment)
+        // и добавим ему нужное свойство
+        review.rate = 0;
+
+        // Добавляем отзыв с возможностью пользовательских оценок
+        writeReview(review)
+    } else {
+        // Добавим простой комментарий без возможности оценки
+        writeReview(comment)
+    }
 }
